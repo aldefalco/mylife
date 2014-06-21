@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLife.Game", "MyLife.Game\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLife.Test", "MyLife.Test\MyLife.Test.csproj", "{2758FF60-0A91-4444-B5C4-825D372A6992}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLife.WindowsFormsApp", "MyLife.WindowsFormsApp\MyLife.WindowsFormsApp.csproj", "{14A720AB-0575-4959-9EB1-3453208E6CBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{2758FF60-0A91-4444-B5C4-825D372A6992}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2758FF60-0A91-4444-B5C4-825D372A6992}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2758FF60-0A91-4444-B5C4-825D372A6992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A720AB-0575-4959-9EB1-3453208E6CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A720AB-0575-4959-9EB1-3453208E6CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A720AB-0575-4959-9EB1-3453208E6CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A720AB-0575-4959-9EB1-3453208E6CBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
