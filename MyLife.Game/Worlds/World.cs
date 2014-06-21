@@ -6,7 +6,7 @@ using System.Text;
 namespace MyLife.Game.Worlds
 {
     /// <summary>
-    /// This is a simple implementaion of the Conway's game word based on hash sets
+    /// This is a simple implementaion of the Conway's life game word based on hash sets
     /// </summary>
     public class SimpleWorld : IWorld
     {
@@ -92,6 +92,20 @@ namespace MyLife.Game.Worlds
                     deadSet.Add(cell);
                 return false;
             }
+        }
+
+
+        public void Set(Cell cell)
+        {
+            liveSet.Add(cell);
+        }
+
+        public void Invert(Cell cell)
+        {
+            if (liveSet.Contains(cell))
+                liveSet.Remove(cell);
+            else
+                liveSet.Add(cell);
         }
     }
 }
