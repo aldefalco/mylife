@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace MyLife.Game.Worlds
+namespace MyLife.Game.Interfaces
 {
     /// <summary>
     /// Conway's life game word public interface
     /// </summary>
     public interface IWorld
     {
+        /*
         /// <summary>
         /// Get cell's enumerator
         /// </summary>
@@ -35,6 +36,11 @@ namespace MyLife.Game.Worlds
         /// </summary>
         /// <param name="cell">The cell of game</param>
         void Invert(Cell cell);
+         */
+
+        IWorldPersistent WorldPersistent { get; }
+        IWorldEditor WorldEditor { get; }
+        IWorldEvolution WorldEvolution { get; }
 
     }
 }

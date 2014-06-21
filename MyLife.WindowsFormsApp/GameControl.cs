@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyLife.Game.Interfaces;
+using MyLife.Game.Data;
 using MyLife.Game.Worlds;
-using MyLife.Game;
 
 namespace MyLife.WindowsFormsApp
 {
@@ -17,12 +18,19 @@ namespace MyLife.WindowsFormsApp
     /// </summary>
     public partial class GameBoardControl : UserControl
     {
+        const int CELL_SIZE = 5;
         private IWorld world;
+        /// <summary>
+        /// Map copy for draw
+        /// </summary>
+        private DrawMap drawMap = new DrawMap();
+        private FlushCriteria flushCriteria = null;
         //private bool dirty;
         //private BufferedGraphicsContext bufferContext;
         //private BufferedGraphics buffer;
         private Pen cellPen = new Pen(Brushes.Green);
         private HashSet<Cell> init = new HashSet<Cell>();
+
 
         public GameBoardControl()
         {
@@ -61,6 +69,15 @@ namespace MyLife.WindowsFormsApp
 
         protected override void OnPaintBackground(PaintEventArgs pevent)
         { 
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            flushCriteria = new FlushCriteria { OffsetX=0, OffsetY=0,
+                                                Width = DisplayRectangle.Width / CELL_SIZE,
+                                                Height = DisplayRectangle.Height / CELL_SIZE
+            }; 
+            base.OnSizeChanged(e);
         }
 
         /*
@@ -102,9 +119,10 @@ namespace MyLife.WindowsFormsApp
 
         public virtual void Draw(Graphics graphics)
         {
-            foreach (var cell in world.Cells)
+            foreach (var cell in drawMap.cells)
             {
-                graphics.DrawRectangle(cellPen, cell.X * 5, cell.Y * 5, 5, 5);
+                graphics.DrawRectangle(cellPen, cell.X * CELL_SIZE, cell.Y * CELL_SIZE, 
+                    CELL_SIZE, CELL_SIZE);
             }
 
             //graphics.DrawRectangle(cellPen, 10, 10, 500, 500);
@@ -145,14 +163,36 @@ namespace MyLife.WindowsFormsApp
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            world.Invert(new Cell(e.X/5, e.Y/5));
-            Invalidate();
+            world.WorldEditor.Invert(new Cell(e.X / CELL_SIZE, e.Y / CELL_SIZE));
+            world.WorldEditor.Commit();
+            UpdateMap();
         }
 
         public void Turn()
         {
-            world.NextGeneration();
+            world.WorldEvolution.Evolve();
+            UpdateMap();
+        }
+
+        public void UpdateMap()
+        {
+            world.WorldPersistent.Flush(drawMap, flushCriteria);
             Invalidate();
+        }
+
+        class DrawMap : IMap
+        {
+            public HashSet<Cell> cells = new HashSet<Cell>();
+
+            public IEnumerable<Cell> Iterator
+            {
+                get { return cells; }
+            }
+
+            public void Commit(IEnumerable<Cell> cells)
+            {
+                this.cells = new HashSet<Cell>(cells);
+            }
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyLife.Game;
+using MyLife.Game.Interfaces;
 using MyLife.Game.Worlds;
 
 namespace MyLife.Test
@@ -56,16 +56,16 @@ namespace MyLife.Test
                                                .........
                                                .........");
 
-            var word = new SimpleWorld();
-            word.Init(initCells);
+            var word = new SimpleWorld() as IWorld;
+            word.WorldPersistent.Initialize(initCells);
             Helpers.CheckCells(word, initCells);
-            Assert.AreEqual(1, word.NextGeneration(), "Wrong number of generation:{0}", word.Generation);
+            Assert.AreEqual(1, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(2, word.NextGeneration(), "Wrong number of generation:{0}", word.Generation);
+            Assert.AreEqual(2, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
             Helpers.CheckCells(word, secondGenResult);
-            Assert.AreEqual(3, word.NextGeneration(), "Wrong number of generation:{0}", word.Generation);
+            Assert.AreEqual(3, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
             Helpers.CheckCells(word, thirdGenResult);
-            Assert.AreEqual(4, word.NextGeneration(), "Wrong number of generation:{0}", word.Generation);
+            Assert.AreEqual(4, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
             Helpers.CheckCells(word, fourthGenResult);
         }
     }

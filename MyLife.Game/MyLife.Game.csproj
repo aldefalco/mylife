@@ -8,7 +8,7 @@
     <ProjectGuid>{3FD19B53-9A4E-4D2F-84EE-8F15F41E14C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyLife.Game</RootNamespace>
+    <RootNamespace>MyLife.Game.Interfaces</RootNamespace>
     <AssemblyName>MyLife.Game</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile154</TargetFrameworkProfile>
@@ -36,11 +36,15 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cell.cs" />
-    <Compile Include="Worlds\IWorld.cs" />
+    <Compile Include="Data\Cell.cs" />
+    <Compile Include="Interfaces\IMap.cs" />
+    <Compile Include="Interfaces\IWordEditor.cs" />
+    <Compile Include="Interfaces\IWordEvolution.cs" />
+    <Compile Include="Interfaces\IWordPersistent.cs" />
+    <Compile Include="Interfaces\IWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sector.cs" />
-    <Compile Include="Worlds\World.cs" />
+    <Compile Include="Worlds\SimpleWorld.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

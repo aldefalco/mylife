@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyLife.Game
+namespace MyLife.Game.Data
 {
     public struct Cell
     {
