@@ -44,9 +44,11 @@
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IModelEditor.cs" />
     <Compile Include="Interfaces\IModelPersistent.cs" />
-    <Compile Include="Interfaces\IWorld.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
+    <Compile Include="Interfaces\IGameAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\HashModel.cs" />
+    <Compile Include="Worlds\AsyncWorld.cs" />
     <Compile Include="Worlds\BasicWorld.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

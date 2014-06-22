@@ -5,25 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyLife.Game.Models
+namespace MyLife.Game.Worlds
 {
     /// <summary>
-    /// This is a game data model implementation based on HashSets
+    /// This is a data model implementation for life game based on HashSets. It's not thread-safe
     /// </summary>
     public class HashModel : IModel, IModelPersistent
     {
-        //private HashSet<Cell> deadSet = new HashSet<Cell>();
         private HashSet<Cell> liveSet = new HashSet<Cell>();
         
-        private Generation generation;
-        private Editor editor;
+        protected Generation generation;
+        protected Editor editor;
 
         /// <summary>
         /// Nested helper class for IGeneration implementation
         /// </summary>
-        class Generation : IGeneration
+        protected class Generation : IGeneration
         {
-            private HashModel owner;
+            protected HashModel owner;
             private HashSet<Cell> generationSet = new HashSet<Cell>();
             private HashSet<Cell> deadSet = new HashSet<Cell>();
             private bool commited = false;
@@ -33,13 +32,13 @@ namespace MyLife.Game.Models
                 this.owner = owner;
             }
 
-            public void CollectAlive(Cell cell)
+            public virtual void CollectAlive(Cell cell)
             {
                 generationSet.Add(cell);
                 commited = false;
             }
 
-            public void Dispose()
+            public virtual void Dispose()
             {
                 if (commited)
                 {
@@ -52,7 +51,7 @@ namespace MyLife.Game.Models
                 }
             }
 
-            public int CollectDead(IEnumerable<Cell> cells)
+            public virtual int CollectDead(IEnumerable<Cell> cells)
             {
                 int count = 0;
                 foreach(Cell cell in cells){
@@ -63,15 +62,15 @@ namespace MyLife.Game.Models
                 return count;
             }
 
-            public IEnumerable<Cell> Dead { get { return deadSet; } }
+            public virtual IEnumerable<Cell> Dead { get { return deadSet; } }
 
-            public void Commit()
+            public virtual void Commit()
             {
                 commited = true;
             }
         }
 
-        class Editor : IModelEditor
+        protected class Editor : IModelEditor
         {
             private HashModel owner;
             private bool commited = false;
@@ -81,13 +80,13 @@ namespace MyLife.Game.Models
                 this.owner = owner;
             }
 
-            public void Set(Cell cell)
+            public virtual void Set(Cell cell)
             {
                 this.owner.liveSet.Add(cell);
                 commited = false;
             }
 
-            public void Invert(Cell cell)
+            public virtual void Invert(Cell cell)
             {
                 commited = false;
                 if (this.owner.liveSet.Contains(cell))
@@ -96,21 +95,21 @@ namespace MyLife.Game.Models
                     this.owner.liveSet.Add(cell);
             }
 
-            public void Reset(Cell cell)
+            public virtual void Reset(Cell cell)
             {
                 commited = false;
                 if (this.owner.liveSet.Contains(cell))
                     this.owner.liveSet.Remove(cell);
             }
 
-            public void Commit()
+            public virtual void Commit()
             {
                 commited = true;
                 this.owner.OnChanged(EventArgs.Empty);
             }
 
             //TODO: implement commit paterns
-            public void Dispose()
+            public virtual void Dispose()
             {
                 
             }
@@ -122,13 +121,13 @@ namespace MyLife.Game.Models
             editor = new Editor(this);
         }
 
-        public void Initialize(ICellBag map)
+        public virtual void Initialize(ICellBag map)
         {
             liveSet = new HashSet<Cell>(map.Iterator);
             OnChanged(EventArgs.Empty);
         }
 
-        public void Flush(ICellBag map, CellArea criteria)
+        public virtual void Flush(ICellBag map, CellArea criteria)
         {
             IEnumerable<Cell> result = liveSet;
             if (criteria != null)
@@ -140,29 +139,29 @@ namespace MyLife.Game.Models
             map.Fill(result);
         }
 
-        public bool IsCellAlive(Cell cell)
+        public virtual bool IsCellAlive(Cell cell)
         {
             return liveSet.Contains(cell);
         }
-        
-        public IEnumerable<Cell> Alive { get { return liveSet; } }
 
-        public IGeneration StartGeneration()
+        public virtual IEnumerable<Cell> Alive { get { return liveSet; } }
+
+        public virtual IGeneration StartGeneration()
         {
             return generation;
         }
 
-        public IModelPersistent ModelPersistent
+        public virtual IModelPersistent ModelPersistent
         {
             get { return this; }
         }
 
-        public IModelEditor ModelEditor
+        public virtual IModelEditor ModelEditor
         {
             get { return editor; }
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             liveSet.Clear();
             OnChanged(EventArgs.Empty);

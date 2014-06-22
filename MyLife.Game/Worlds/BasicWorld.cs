@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyLife.Game.Models
+namespace MyLife.Game.Worlds
 {
     /// <summary>
-    /// This is a simple implementaion word algorithm of the Conway's life game
+    /// This is a simple implementaion algorithm of the Conway's life game.
+    /// It's not thread-safe and works on sync mode.
     /// </summary>
-    public class BasicWorld : IWorld
+    public class BasicWorld : IGame
     {
         private int generation = 0;
  
@@ -19,11 +20,8 @@ namespace MyLife.Game.Models
         /// </summary>
         private readonly List<Cell> neighbours = null;
 
-        private IModel model;
-
-        public BasicWorld(IModel model)
+        public BasicWorld()
         {
-            this.model = model;
             neighbours = (from i in Enumerable.Range(-1, 3)
                          from j in Enumerable.Range(-1, 3)
                          where !(i == 0 && j == 0)
@@ -32,12 +30,7 @@ namespace MyLife.Game.Models
 
         public int Generation { get { return generation; } }
 
-        public IModel Model
-        {
-            get { return model; }
-        }
-
-        public int Evolve()
+        public int Evolve(IModel model)
         {
             using (var gen = model.StartGeneration())
             {

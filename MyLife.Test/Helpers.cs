@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyLife.Game.Models;
+using MyLife.Game.Worlds;
 using MyLife.Game.Data;
 using MyLife.Game.Common;
 
@@ -13,12 +13,12 @@ namespace MyLife.Test
 {
     public static class Helpers
     {
-        public static void CheckCells(IWorld word, ICellBag map)
+        public static void CheckCells(IModel model, ICellBag map)
         {
             var result = new HashSet<Cell>(map.Iterator);
 
             var wordMap = new HashBuffer();
-            word.Model.ModelPersistent.Flush(wordMap, null);
+            model.ModelPersistent.Flush(wordMap, null);
 
             //TODO: use set class methods to check the intersect
             foreach (Cell cell in wordMap.Iterator)

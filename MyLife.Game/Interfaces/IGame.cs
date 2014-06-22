@@ -5,18 +5,13 @@ namespace MyLife.Game.Interfaces
     /// <summary>
     /// Conway's life game word public interface
     /// </summary>
-    public interface IWorld
+    public interface IGame
     {
-        /// <summary>
-        /// Gets word model
-        /// </summary>
-        IModel Model { get; }
-
         /// <summary>
         /// Executes new generation
         /// </summary>
         /// <returns>Current generation number</returns>
-        int Evolve();
+        int Evolve(IModel model);
 
         /// <summary>
         /// Current generation number

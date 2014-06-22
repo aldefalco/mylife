@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLife.Game.Interfaces;
 using MyLife.Game.Data;
-using MyLife.Game.Models;
+using MyLife.Game.Worlds;
 using MyLife.Game.Common;
+using MyLife.Game.Worlds;
 
 namespace MyLife.WindowsFormsApp
 {
@@ -27,7 +28,9 @@ namespace MyLife.WindowsFormsApp
         /// <summary>
         /// Life game word instance
         /// </summary>
-        private IWorld world;
+        private IGameAsync world;
+
+        private IModel model;
 
         /// <summary>
         /// This is a buffer for drawing purposes
@@ -45,11 +48,16 @@ namespace MyLife.WindowsFormsApp
 
         public GameBoardControl()
         {
-            world = new BasicWorld(new HashModel());
-            world.Model.Changed += (sender, args) =>
+            //world = new BasicWorld();
+            //model = new HashModel();
+            // Try async implementation
+            world = new AsyncWorld();
+            model = new AsyncWorld.AdaptedToSyncModel();
+            
+            model.Changed += (sender, args) =>
             {
-                var model = sender as IModel;
-                model.ModelPersistent.Flush(buffer, visibleArea);
+                var m = sender as IModel;
+                m.ModelPersistent.Flush(buffer, visibleArea);
                 Invalidate();
             };
 
@@ -59,24 +67,28 @@ namespace MyLife.WindowsFormsApp
 
         public void Turn()
         {
-            world.Evolve();
+            //world.Evolve(model);
+            world.EvolveAsync(model, () => {
+                model.ModelPersistent.Flush(buffer, visibleArea);
+                Invalidate();
+            });
         }
 
         public void SaveToFile(string fileName)
         {
             var storage = new GameFileStorage(fileName);
-            world.Model.ModelPersistent.Flush(storage, null);
+            model.ModelPersistent.Flush(storage, null);
         }
 
         public void LoadFromFile(string fileName)
         {
             var storage = new GameFileStorage(fileName);
-            world.Model.ModelPersistent.Initialize(storage);
+            model.ModelPersistent.Initialize(storage);
         }
 
         public void Clear()
         {
-            world.Model.Clear();
+            model.Clear();
         }
 
         protected override void OnPaintBackground(PaintEventArgs pevent)
@@ -99,8 +111,8 @@ namespace MyLife.WindowsFormsApp
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            world.Model.ModelEditor.Invert(new Cell(e.X / CELL_SIZE, e.Y / CELL_SIZE));
-            world.Model.ModelEditor.Commit();
+            model.ModelEditor.Invert(new Cell(e.X / CELL_SIZE, e.Y / CELL_SIZE));
+            model.ModelEditor.Commit();
         }
 
         public virtual void Draw(Graphics graphics)
