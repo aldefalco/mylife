@@ -12,25 +12,25 @@ namespace MyLife.Game.Interfaces
     public interface IModelEditor : IDisposable
     {
         /// <summary>
-        /// Set cell on
+        /// Sets cell on
         /// </summary>
         /// <param name="cell"></param>
         void Set(Cell cell);
 
         /// <summary>
-        /// Set cell off
+        /// Sets cell off
         /// </summary>
         /// <param name="cell"></param>
         void Reset(Cell cell);
 
         /// <summary>
-        /// Invert cell state
+        /// Inverts cell state
         /// </summary>
         /// <param name="cell"></param>
         void Invert(Cell cell);
 
         /// <summary>
-        /// Commit changes
+        /// Commits changes
         /// </summary>
         void Commit();
     }

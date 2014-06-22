@@ -24,10 +24,12 @@ namespace MyLife.Game.Worlds
                 {
 
                 }
+                
+                // Sets async mode off
                 public override void Dispose()
                 {
                     base.Dispose();
-                    (owner as AdaptedToSyncModel).InAsyc = false;
+                    (owner as AdaptedToSyncModel).InAsync = false;
                 }
             }
 
@@ -36,19 +38,21 @@ namespace MyLife.Game.Worlds
                 generation = new AdaptedGeneration(this);
             }
 
-            protected bool InAsyc { get; set; }
+            protected bool InAsync { get; set; }
 
+            // Just skip all notifications in the async mode
             protected override void OnChanged(EventArgs e)
             {
-                if (InAsyc)
+                if (InAsync)
                     return;
 
                 base.OnChanged(e);
             }
 
+            // Sets async mode on
             public override IGeneration StartGeneration()
             {
-                InAsyc = true;
+                InAsync = true;
                 return base.StartGeneration();
             }
         }
