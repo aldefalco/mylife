@@ -31,12 +31,12 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.nextBtn = new System.Windows.Forms.Button();
-            this.gameControl = new MyLife.WindowsFormsApp.GameBoardControl();
             this.playBtn = new System.Windows.Forms.Button();
             this.stopBtn = new System.Windows.Forms.Button();
             this.clearBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.loadBtn = new System.Windows.Forms.Button();
+            this.gameControl = new MyLife.WindowsFormsApp.GameBoardControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -80,14 +80,6 @@
             this.nextBtn.UseVisualStyleBackColor = true;
             this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
             // 
-            // gameControl
-            // 
-            this.gameControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameControl.Location = new System.Drawing.Point(3, 3);
-            this.gameControl.Name = "gameControl";
-            this.gameControl.Size = new System.Drawing.Size(895, 537);
-            this.gameControl.TabIndex = 0;
-            // 
             // playBtn
             // 
             this.playBtn.Location = new System.Drawing.Point(84, 3);
@@ -126,6 +118,7 @@
             this.saveBtn.TabIndex = 4;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // loadBtn
             // 
@@ -135,6 +128,15 @@
             this.loadBtn.TabIndex = 5;
             this.loadBtn.Text = "Load";
             this.loadBtn.UseVisualStyleBackColor = true;
+            this.loadBtn.Click += new System.EventHandler(this.loadBtn_Click);
+            // 
+            // gameControl
+            // 
+            this.gameControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameControl.Location = new System.Drawing.Point(3, 3);
+            this.gameControl.Name = "gameControl";
+            this.gameControl.Size = new System.Drawing.Size(895, 537);
+            this.gameControl.TabIndex = 0;
             // 
             // MainForm
             // 

@@ -25,12 +25,12 @@ namespace MyLife.WindowsFormsApp
             gameControl.Turn();
         }
 
-        private void playBtn_Click(object sender, EventArgs e)
+        private async void playBtn_Click(object sender, EventArgs e)
         {
             isPlay = true;
             UpdateControlState();
 
-            Play(1, () =>
+            await Play(1, () =>
             {
                 gameControl.Turn();   
                 return isPlay;
@@ -42,6 +42,9 @@ namespace MyLife.WindowsFormsApp
             nextBtn.Enabled = !isPlay;
             playBtn.Enabled = !isPlay;
             stopBtn.Enabled = isPlay;
+            saveBtn.Enabled = !isPlay;
+            loadBtn.Enabled = !isPlay;
+            clearBtn.Enabled = !isPlay;
         }
 
         private async Task Play(int delay,
@@ -60,6 +63,28 @@ namespace MyLife.WindowsFormsApp
         private void stopBtn_Click(object sender, EventArgs e)
         {
             isPlay = false;
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            var dlg = new SaveFileDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                UseWaitCursor = true;
+                gameControl.SaveToFile(dlg.FileName);
+                UseWaitCursor = false;
+            }
+        }
+
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                UseWaitCursor = true;
+                gameControl.LoadFromFile(dlg.FileName);
+                UseWaitCursor = false;
+            }
         }
     }
 }

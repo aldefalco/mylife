@@ -44,22 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameFileStorage.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameControl.cs">
+    <Compile Include="GameBoardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GameControl.Designer.cs">
-      <DependentUpon>GameControl.cs</DependentUpon>
+    <Compile Include="GameBoardControl.Designer.cs">
+      <DependentUpon>GameBoardControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GameControl.resx">
-      <DependentUpon>GameControl.cs</DependentUpon>
+    <EmbeddedResource Include="GameBoardControl.resx">
+      <DependentUpon>GameBoardControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

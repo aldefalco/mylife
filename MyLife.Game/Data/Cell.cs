@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MyLife.Game.Data
 {
+    /// <summary>
+    /// A cell in the life game world
+    /// </summary>
     public struct Cell
     {
         public long X;
@@ -16,10 +19,13 @@ namespace MyLife.Game.Data
             this.Y = y;
         }
 
-        public void Offset(long x, long y)
+        public Cell Offset(long x, long y)
         {
+            return new Cell(this.X + x, this.Y + y);
+            /*
             this.X += x;
             this.Y += y;
+             * */
         }
 
         public override string ToString()

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyLife.Game.Interfaces;
-using MyLife.Game.Worlds;
+using MyLife.Game.Models;
 
 namespace MyLife.Test
 {
@@ -38,16 +38,16 @@ namespace MyLife.Test
                                                .........
                                                .........");
 
-            var word = new SimpleWorld() as IWorld;
-            word.WorldPersistent.Initialize(initCells);
+            var word = new BasicWorld(new HashModel()) as IWorld;
+            word.Model.ModelPersistent.Initialize(initCells);
             Helpers.CheckCells(word, initCells);
-            Assert.AreEqual(1, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(1, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(2, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(2, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
-            Assert.AreEqual(3, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(3, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(4, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(4, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
         }
 
@@ -81,16 +81,16 @@ namespace MyLife.Test
                                                .........
                                                .........");
 
-            var word = new SimpleWorld() as IWorld;
-            word.WorldPersistent.Initialize(initCells);
+            var word = new BasicWorld(new HashModel()) as IWorld;
+            word.Model.ModelPersistent.Initialize(initCells);
             Helpers.CheckCells(word, initCells);
-            Assert.AreEqual(1, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(1, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(2, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(2, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
-            Assert.AreEqual(3, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(3, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(4, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(4, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
         }
 
@@ -124,16 +124,16 @@ namespace MyLife.Test
                                                .........
                                                .........");
 
-            var word = new SimpleWorld() as IWorld;
-            word.WorldPersistent.Initialize(initCells);
+            var word = new BasicWorld(new HashModel()) as IWorld;
+            word.Model.ModelPersistent.Initialize(initCells);
             Helpers.CheckCells(word, initCells);
-            Assert.AreEqual(1, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(1, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(2, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(2, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
-            Assert.AreEqual(3, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(3, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, firstGenResult);
-            Assert.AreEqual(4, word.WorldEvolution.Evolve(), "Wrong number of generation:{0}", word.WorldEvolution.Generation);
+            Assert.AreEqual(4, word.Evolve(), "Wrong number of generation:{0}", word.Generation);
             Helpers.CheckCells(word, secondGenResult);
         }
     }
